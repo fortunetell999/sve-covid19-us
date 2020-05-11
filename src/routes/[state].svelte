@@ -11,6 +11,14 @@
   export let state;
 </script>
 
-<h1>{state}</h1>
+<svetle:head>
+  <title>Covid19 US {state}</title>
+</svetle:head>
+<div class="section header">
+  <div class="container">
+    <h1>Covid19 - {state}</h1>
+  </div>
+</div>
+
 <CovidStat />
 <CovidChart />
