@@ -4,7 +4,13 @@
     try {
       const usStats = await requests.usStats();
       return { usStats };
-    } catch (e) {}
+    } catch (e) {
+      this.error(
+        500,
+        "There is an error in calling the api. Please try again in 5 minutes."
+      );
+      return;
+    }
   }
 </script>
 
