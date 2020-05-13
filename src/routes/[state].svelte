@@ -1,5 +1,7 @@
 <script context="module">
+  import requests from "../data/requests.js";
   import stateNames from "../data/stateNames.js";
+
   export async function preload(page) {
     const state = page.params["state"];
     if (stateNames.find(e => e.abbreviation === state) === undefined) {
@@ -8,7 +10,8 @@
     }
 
     try {
-      return { state: page.params["state"] };
+      const stateStats = await requests.stateStats(state);
+      return { state, stateStats };
     } catch (e) {
       this.error(
         500,
@@ -24,6 +27,7 @@
   import CovidStat from "../components/CovidStat.svelte";
   import TableContainer from "../components/TableContainer.svelte";
   export let state;
+  export let stateStats;
 </script>
 
 <svetle:head>
@@ -35,5 +39,5 @@
   </div>
 </div>
 
-<CovidStat />
+<CovidStat {...stateStats} />
 <CovidChart />
