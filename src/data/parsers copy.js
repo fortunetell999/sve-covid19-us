@@ -22,30 +22,32 @@ function parseHistoric(historicData) {
     {
       label: 'Cases',
       key: 'positive',
-      color: 'rgb(100, 0, 200)',
+      color: 'rbg(100,0,200)',
     },
     {
       label: 'Recovered',
       key: 'recovered',
-      color: 'rgb(100, 100, 200)',
+      color: 'rbg(100,100,200)',
     },
     {
       label: 'Total Tested',
       key: 'totalTestResults',
-      color: 'rgb(10, 30, 100)',
+      color: 'rbg(10,30,100)',
     },
     {
       label: 'Hospitalized',
       key: 'hospitalizedCurrently',
-      color: 'rgb(20, 100, 230)',
+      color: 'rbg(20,100,230)',
     },
     {
       label: 'Deaths',
       key: 'death',
-      color: 'rgb(255, 99, 132)',
+      color: 'rbg(255,99,132)',
     },
   ].reduce((prev, next) => {
-    if (historicData.filter((d) => d[next.key] !== null).length > 4) {
+    if (
+      Object.values(historicData).filter((d) => d[next.key] !== null).length > 4
+    ) {
       prev.push(parseChart(historicData, next.key, next.label, next.color));
     }
 
@@ -54,10 +56,10 @@ function parseHistoric(historicData) {
 }
 
 function parseChart(historicData, key, label, color) {
-  const chartData = historicData.map((data) => {
+  const chartData = Object.keys(historicData).map((data) => {
     return {
       x: moment(data.date, 'YYYYMMDD'),
-      y: data[key] || 0,
+      y: data[key],
     };
   });
 
